@@ -11,5 +11,5 @@ file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS
   ${CMAKE_CURRENT_SOURCE_DIR}/*.cc
 )
 
-add_executable(shape_test ${SRC_FILES})
-target_link_libraries(shape_test PRIVATE shape gtest gmock gtest_main)
+add_executable(mystring_test ${SRC_FILES})
+target_link_libraries(mystring_test PRIVATE mystring gtest gmock gtest_main)

@@ -2,12 +2,12 @@
 file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS
     ${CMAKE_CURRENT_SOURCE_DIR}/*.cc
 )
-add_library(shape STATIC ${SRC_FILES})
+add_library(mystring STATIC ${SRC_FILES})
 
 # A directory with header files
-target_include_directories(shape PUBLIC ${CMAKE_SOURCE_DIR}/include)
+target_include_directories(mystring PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
-target_compile_options(shape PRIVATE -Wall -Werror)
+target_compile_options(mystring PRIVATE -Wall -Werror)
 
 # External Libraries
 include(FetchContent)
@@ -18,4 +18,4 @@ FetchContent_Declare(
   )
 FetchContent_MakeAvailable(Fmt)
 
-target_link_libraries(shape PRIVATE fmt)
+target_link_libraries(mystring PRIVATE fmt)
