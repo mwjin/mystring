@@ -13,3 +13,7 @@ file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS
 
 add_executable(mystring_test ${SRC_FILES})
 target_link_libraries(mystring_test PRIVATE mystring gtest gmock gtest_main)
+
+enable_testing()
+include(GoogleTest)
+gtest_discover_tests(mystring_test)
