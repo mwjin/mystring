@@ -22,6 +22,7 @@ MyString::~MyString() {
 }
 
 MyString& MyString::operator=(const MyString& other) {
+  if (this == &other) return *this;
   using std::swap;
   MyString tmp{other.str_};
   swap(this->str_, tmp.str_);

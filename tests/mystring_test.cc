@@ -43,5 +43,10 @@ TEST(MyStringTest, AssignMyString) {
   EXPECT_EQ(strcmp(src.str(), dst.str()), 0);
 }
 
+TEST(MyStringTest, AssignMyself) {
+  MyString src{"hello"};
+  src = src;
+  EXPECT_EQ(strcmp(src.str(), "hello"), 0);
+}
 }  // namespace
 }  // namespace mystring
