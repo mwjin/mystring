@@ -5,9 +5,9 @@ class MyString {
   MyString();
   MyString(char c);
   MyString(const char* s);
-  MyString(const MyString& other);
+  MyString(const MyString& rhs);
   ~MyString();
-  MyString& operator=(const MyString& other);
+  MyString& operator=(const MyString& rhs);
   MyString& operator+=(const MyString& rhs);
 
   const char* str() const;
