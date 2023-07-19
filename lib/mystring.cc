@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cstring>
+#include <memory>
 
 MyString::MyString() : str_{new char[1]}, len_{0} {}
 
@@ -32,12 +33,12 @@ MyString& MyString::operator=(const MyString& other) {
 
 MyString& MyString::operator+=(const MyString& rhs) {
   std::size_t str_size{this->len_ + rhs.len_};
-  char* new_str = new char[str_size + 1];
-  strncpy(new_str, this->str_, this->len_);
-  strncat(new_str, rhs.str_, rhs.len_);
+  auto new_str{std::make_unique<char[]>(str_size + 1)};
+  strncpy(new_str.get(), this->str_, this->len_);
+  strncat(new_str.get(), rhs.str_, rhs.len_);
 
   using std::swap;
-  MyString tmp{new_str};
+  MyString tmp{new_str.get()};
   swap(this->str_, tmp.str_);
   swap(this->len_, tmp.len_);
   return *this;
@@ -46,19 +47,19 @@ MyString& MyString::operator+=(const MyString& rhs) {
 MyString MyString::substr(std::size_t pos, std::size_t len) const {
   if (len == npos) len = this->len_ - pos;
   const char* str{this->str_ + pos};
-  char* result{new char[len + 1]};
-  strncpy(result, str, len);
-  return result;
+  auto result{std::make_unique<char[]>(len + 1)};
+  strncpy(result.get(), str, len);
+  return result.get();
 }
 
 const char* MyString::str() const { return str_; }
 int MyString::length() const { return len_; }
 
 MyString operator+(const MyString& str1, const MyString& str2) {
-  char* new_str = new char[str1.length() + str2.length() + 1];
-  strncpy(new_str, str1.str(), str1.length());
-  strncat(new_str, str2.str(), str2.length());
-  return new_str;
+  auto new_str = std::make_unique<char[]>(str1.length() + str2.length() + 1);
+  strncpy(new_str.get(), str1.str(), str1.length());
+  strncat(new_str.get(), str2.str(), str2.length());
+  return new_str.get();
 }
 
 bool operator==(const MyString& str1, const MyString& str2) {
