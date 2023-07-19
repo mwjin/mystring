@@ -13,7 +13,7 @@ MyString::MyString(const char* s) {
   if (s != nullptr) {
     len_ = strlen(s);
     str_ = new char[len_ + 1];
-    strncpy(str_, s, len_);
+    strcpy(str_, s);
   }
 }
 
@@ -35,8 +35,8 @@ MyString& MyString::operator=(const MyString& other) {
 MyString& MyString::operator+=(const MyString& rhs) {
   std::size_t str_size{this->len_ + rhs.len_};
   auto new_str{std::make_unique<char[]>(str_size + 1)};
-  strncpy(new_str.get(), this->str_, this->len_);
-  strncat(new_str.get(), rhs.str_, rhs.len_);
+  strcpy(new_str.get(), this->str_);
+  strcat(new_str.get(), rhs.str_);
 
   using std::swap;
   MyString tmp{new_str.get()};
@@ -59,8 +59,8 @@ int MyString::length() const { return len_; }
 
 MyString operator+(const MyString& str1, const MyString& str2) {
   auto new_str = std::make_unique<char[]>(str1.length() + str2.length() + 1);
-  strncpy(new_str.get(), str1.str(), str1.length());
-  strncat(new_str.get(), str2.str(), str2.length());
+  strcpy(new_str.get(), str1.str());
+  strcat(new_str.get(), str2.str());
   return new_str.get();
 }
 
