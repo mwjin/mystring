@@ -111,5 +111,21 @@ TEST(MyStringTest, TwoStringGE) {
   EXPECT_TRUE(str >= "b");
   EXPECT_FALSE(str >= "bc");
 }
+
+TEST(MyStringTest, GetSubstring) {
+  MyString str{"Hello, World!"};
+  EXPECT_EQ(str.substr(3, 2), "lo");
+}
+
+TEST(MyStringTest, GetSubstrNoArgs) {
+  MyString str{"Hello, World!"};
+  EXPECT_EQ(str.substr(), "Hello, World!");
+}
+
+TEST(MyStringTest, GetSubstrOnlyPos) {
+  MyString str{"Hello, World!"};
+  EXPECT_EQ(str.substr(5), ", World!");
+}
+
 }  // namespace
 }  // namespace mystring

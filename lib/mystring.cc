@@ -43,6 +43,14 @@ MyString& MyString::operator+=(const MyString& rhs) {
   return *this;
 }
 
+MyString MyString::substr(std::size_t pos, std::size_t len) const {
+  if (len == npos) len = this->len_ - pos;
+  const char* str{this->str_ + pos};
+  char* result{new char[len + 1]};
+  strncpy(result, str, len);
+  return result;
+}
+
 const char* MyString::str() const { return str_; }
 int MyString::length() const { return len_; }
 
