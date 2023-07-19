@@ -30,5 +30,25 @@ MyString& MyString::operator=(const MyString& other) {
   return *this;
 }
 
+MyString& MyString::operator+=(const MyString& rhs) {
+  std::size_t str_size{this->len_ + rhs.len_};
+  char* new_str = new char[str_size + 1];
+  strncpy(new_str, this->str_, this->len_);
+  strncat(new_str, rhs.str_, rhs.len_);
+
+  using std::swap;
+  MyString tmp{new_str};
+  swap(this->str_, tmp.str_);
+  swap(this->len_, tmp.len_);
+  return *this;
+}
+
 const char* MyString::str() const { return str_; }
 int MyString::length() const { return len_; }
+
+MyString operator+(const MyString& str1, const MyString& str2) {
+  char* new_str = new char[str1.length() + str2.length() + 1];
+  strncpy(new_str, str1.str(), str1.length());
+  strncat(new_str, str2.str(), str2.length());
+  return new_str;
+}

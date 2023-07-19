@@ -48,5 +48,26 @@ TEST(MyStringTest, AssignMyself) {
   src = src;
   EXPECT_EQ(strcmp(src.str(), "hello"), 0);
 }
+
+TEST(MyStringTest, ExtendString) {
+  MyString dst{"Hello"};
+  MyString src{", World!"};
+  dst += src;
+  EXPECT_EQ(strcmp(dst.str(), "Hello, World!"), 0);
+}
+
+TEST(MyStringTest, ExtendRawString) {
+  MyString dst{"Hello"};
+  const char* src{", World!"};
+  dst += src;  // Expect implicit construction
+  EXPECT_EQ(strcmp(dst.str(), "Hello, World!"), 0);
+}
+
+TEST(MyStringTest, ConcatStrings) {
+  MyString str1{"Hello"};
+  MyString str2{", World!"};
+  MyString result{str1 + str2};
+  EXPECT_EQ(strcmp(result.str(), "Hello, World!"), 0);
+}
 }  // namespace
 }  // namespace mystring
