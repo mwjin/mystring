@@ -19,3 +19,9 @@ class MyString {
 };
 
 MyString operator+(const MyString& str1, const MyString& str2);
+bool operator==(const MyString& str1, const MyString& str2);
+bool operator!=(const MyString& str1, const MyString& str2);
+bool operator<(const MyString& str1, const MyString& str2);
+bool operator<=(const MyString& str1, const MyString& str2);
+bool operator>(const MyString& str1, const MyString& str2);
+bool operator>=(const MyString& str1, const MyString& str2);

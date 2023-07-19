@@ -69,5 +69,47 @@ TEST(MyStringTest, ConcatStrings) {
   MyString result{str1 + str2};
   EXPECT_EQ(strcmp(result.str(), "Hello, World!"), 0);
 }
+
+TEST(MyStringTest, TwoStringEQ) {
+  MyString str{"a"};
+  EXPECT_TRUE(str == "a");
+  EXPECT_FALSE(str == "b");
+  EXPECT_FALSE(str == "ab");
+}
+
+TEST(MyStringTest, TwoStringNE) {
+  MyString str{"a"};
+  EXPECT_FALSE(str != "a");
+  EXPECT_TRUE(str != "b");
+  EXPECT_TRUE(str != "ab");
+}
+
+TEST(MyStringTest, TwoStringLess) {
+  MyString str{"a"};
+  EXPECT_FALSE(str < "a");
+  EXPECT_TRUE(str < "b");
+  EXPECT_TRUE(str < "ab");
+}
+
+TEST(MyStringTest, TwoStringLE) {
+  MyString str{"c"};
+  EXPECT_TRUE(str <= "c");
+  EXPECT_FALSE(str <= "b");
+  EXPECT_TRUE(str <= "cb");
+}
+
+TEST(MyStringTest, TwoStringGreater) {
+  MyString str{"b"};
+  EXPECT_TRUE(str > "a");
+  EXPECT_FALSE(str > "b");
+  EXPECT_TRUE(str > "ab");
+}
+
+TEST(MyStringTest, TwoStringGE) {
+  MyString str{"b"};
+  EXPECT_TRUE(str >= "a");
+  EXPECT_TRUE(str >= "b");
+  EXPECT_FALSE(str >= "bc");
+}
 }  // namespace
 }  // namespace mystring

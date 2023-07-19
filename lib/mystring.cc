@@ -52,3 +52,27 @@ MyString operator+(const MyString& str1, const MyString& str2) {
   strncat(new_str, str2.str(), str2.length());
   return new_str;
 }
+
+bool operator==(const MyString& str1, const MyString& str2) {
+  return strcmp(str1.str(), str2.str()) == 0;
+}
+
+bool operator!=(const MyString& str1, const MyString& str2) {
+  return strcmp(str1.str(), str2.str()) != 0;
+}
+
+bool operator<(const MyString& str1, const MyString& str2) {
+  return strcmp(str1.str(), str2.str()) < 0;
+}
+
+bool operator<=(const MyString& str1, const MyString& str2) {
+  return strcmp(str1.str(), str2.str()) <= 0;
+}
+
+bool operator>(const MyString& str1, const MyString& str2) {
+  return strcmp(str1.str(), str2.str()) > 0;
+}
+
+bool operator>=(const MyString& str1, const MyString& str2) {
+  return strcmp(str1.str(), str2.str()) >= 0;
+}
