@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cstring>
 #include <memory>
+#include <stdexcept>
 
 MyString::MyString() : str_{new char[1]}, len_{0} {}
 
@@ -45,6 +46,7 @@ MyString& MyString::operator+=(const MyString& rhs) {
 }
 
 MyString MyString::substr(std::size_t pos, std::size_t len) const {
+  if (pos >= this->len_) throw std::out_of_range("pos is out of the boundary.");
   if (len == npos) len = this->len_ - pos;
   const char* str{this->str_ + pos};
   auto result{std::make_unique<char[]>(len + 1)};
