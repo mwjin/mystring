@@ -26,12 +26,16 @@ MyString::~MyString() {
   if (str_ != nullptr) delete[] str_;
 }
 
-MyString& MyString::operator=(const MyString& other) {
-  if (this == &other) return *this;
-  using std::swap;
-  MyString tmp{other.str_};
-  swap(this->str_, tmp.str_);
-  swap(this->len_, tmp.len_);
+MyString& MyString::operator=(const MyString& rhs) {
+  if (this == &rhs) return *this;
+  if (rhs.len_ <= this->capacity_) {
+    for (int i{}; i < rhs.len_; ++i) this->str_[i] = rhs.str_[i];
+    this->str_[rhs.len_] = '\0';
+    this->len_ = rhs.len_;
+  } else {
+    MyString tmp{rhs.str_};
+    swap(tmp);
+  }
   return *this;
 }
 
@@ -42,10 +46,8 @@ MyString& MyString::operator+=(const MyString& rhs) {
   for (int i{}; i < this->len_; ++i) raw_str[i] = this->str_[i];
   for (int i{}; i < rhs.len_; ++i) raw_str[i + this->len_] = rhs.str_[i];
 
-  using std::swap;
   MyString tmp{raw_str};
-  swap(this->str_, tmp.str_);
-  swap(this->len_, tmp.len_);
+  swap(tmp);
   return *this;
 }
 
@@ -68,6 +70,13 @@ char MyString::at(std::size_t pos) const {
 const char* MyString::str() const { return str_; }
 std::size_t MyString::length() const { return len_; }
 std::size_t MyString::capacity() const { return capacity_; }
+
+void MyString::swap(MyString& rhs) {
+  using std::swap;
+  swap(this->str_, rhs.str_);
+  swap(this->len_, rhs.len_);
+  swap(this->capacity_, rhs.capacity_);
+}
 
 MyString operator+(const MyString& str1, const MyString& str2) {
   auto new_str = std::make_unique<char[]>(str1.length() + str2.length() + 1);

@@ -17,6 +17,7 @@ class MyString {
   std::size_t capacity() const;
 
  private:
+  void swap(MyString& rhs);
   char* str_ = nullptr;
   std::size_t len_ = 0;
   std::size_t capacity_ = 0;

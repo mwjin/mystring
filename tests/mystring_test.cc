@@ -43,6 +43,15 @@ TEST(MyStringTest, AssignMyString) {
   EXPECT_EQ(strcmp(src.str(), dst.str()), 0);
 }
 
+TEST(MyStringTest, AssignShorterString) {
+  MyString src{"Hi"};
+  MyString dst{"Hello"};
+  dst = src;
+  EXPECT_EQ(strcmp(src.str(), "Hi"), 0);
+  EXPECT_EQ(src.length(), dst.length());
+  EXPECT_EQ(strcmp(src.str(), dst.str()), 0);
+}
+
 TEST(MyStringTest, AssignMyself) {
   MyString src{"hello"};
   src = src;
