@@ -5,13 +5,16 @@
 #include <memory>
 #include <stdexcept>
 
-MyString::MyString() : str_{new char[1]}, len_{0} {}
+MyString::MyString() : str_{new char[1]}, len_{0}, capacity_{0} {}
 
-MyString::MyString(char c) : str_{new char[2]}, len_{1} { str_[0] = c; }
+MyString::MyString(char c) : str_{new char[2]}, len_{1}, capacity_{1} {
+  str_[0] = c;
+}
 
 MyString::MyString(const char* s) {
   if (s != nullptr) {
     len_ = strlen(s);
+    capacity_ = len_;
     str_ = new char[len_ + 1];
     for (int i{}; i < len_; ++i) str_[i] = s[i];
   }
@@ -63,7 +66,8 @@ char MyString::at(std::size_t pos) const {
 }
 
 const char* MyString::str() const { return str_; }
-int MyString::length() const { return len_; }
+std::size_t MyString::length() const { return len_; }
+std::size_t MyString::capacity() const { return capacity_; }
 
 MyString operator+(const MyString& str1, const MyString& str2) {
   auto new_str = std::make_unique<char[]>(str1.length() + str2.length() + 1);

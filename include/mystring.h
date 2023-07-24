@@ -13,11 +13,13 @@ class MyString {
   char at(std::size_t pos) const;
 
   const char* str() const;
-  int length() const;
+  std::size_t length() const;
+  std::size_t capacity() const;
 
  private:
   char* str_ = nullptr;
   std::size_t len_ = 0;
+  std::size_t capacity_ = 0;
   static const std::size_t npos = -1;
 };
 
