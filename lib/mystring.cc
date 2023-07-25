@@ -114,7 +114,7 @@ MyString& MyString::insert(std::size_t pos, const MyString& rhs) {
   return *this;
 }
 
-const char* MyString::str() const { return str_; }
+const char* MyString::c_str() const { return str_; }
 std::size_t MyString::length() const { return len_; }
 std::size_t MyString::capacity() const { return capacity_; }
 
@@ -134,25 +134,25 @@ MyString operator+(const MyString& str1, const MyString& str2) {
 }
 
 bool operator==(const MyString& str1, const MyString& str2) {
-  return strcmp(str1.str(), str2.str()) == 0;
+  return strcmp(str1.c_str(), str2.c_str()) == 0;
 }
 
 bool operator!=(const MyString& str1, const MyString& str2) {
-  return strcmp(str1.str(), str2.str()) != 0;
+  return strcmp(str1.c_str(), str2.c_str()) != 0;
 }
 
 bool operator<(const MyString& str1, const MyString& str2) {
-  return strcmp(str1.str(), str2.str()) < 0;
+  return strcmp(str1.c_str(), str2.c_str()) < 0;
 }
 
 bool operator<=(const MyString& str1, const MyString& str2) {
-  return strcmp(str1.str(), str2.str()) <= 0;
+  return strcmp(str1.c_str(), str2.c_str()) <= 0;
 }
 
 bool operator>(const MyString& str1, const MyString& str2) {
-  return strcmp(str1.str(), str2.str()) > 0;
+  return strcmp(str1.c_str(), str2.c_str()) > 0;
 }
 
 bool operator>=(const MyString& str1, const MyString& str2) {
-  return strcmp(str1.str(), str2.str()) >= 0;
+  return strcmp(str1.c_str(), str2.c_str()) >= 0;
 }
