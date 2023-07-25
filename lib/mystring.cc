@@ -43,15 +43,21 @@ MyString& MyString::operator=(const MyString& rhs) {
 }
 
 MyString& MyString::operator+=(const MyString& rhs) {
-  std::size_t str_size{this->len_ + rhs.len_};
-  auto new_str{std::make_unique<char[]>(str_size + 1)};
-  auto raw_str{new_str.get()};
-  for (std::size_t i{}; i < this->len_; ++i) raw_str[i] = this->str_[i];
-  for (std::size_t i{}; i < rhs.len_; ++i)
-    raw_str[i + this->len_] = rhs.str_[i];
+  if (this->capacity_ - this->len_ > rhs.len_) {
+    for (std::size_t i{}; i < rhs.len_; ++i)
+      this->str_[this->len_ + i] = rhs.str_[i];
+    this->len_ += rhs.len_;
+  } else {
+    std::size_t str_size{this->len_ + rhs.len_};
+    auto new_str{std::make_unique<char[]>(str_size + 1)};
+    auto raw_str{new_str.get()};
+    for (std::size_t i{}; i < this->len_; ++i) raw_str[i] = this->str_[i];
+    for (std::size_t i{}; i < rhs.len_; ++i)
+      raw_str[i + this->len_] = rhs.str_[i];
 
-  MyString tmp{raw_str};
-  swap(tmp);
+    MyString tmp{raw_str};
+    swap(tmp);
+  }
   return *this;
 }
 
