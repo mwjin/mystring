@@ -92,6 +92,30 @@ void MyString::reserve(std::size_t size) {
   delete[] new_str;
 }
 
+MyString& MyString::insert(std::size_t pos, const MyString& rhs) {
+  if (pos > this->len_) throw std::out_of_range("pos is out of the boundary");
+  if (this->len_ + rhs.len_ < this->capacity_) {
+    if (this->len_ > 0) {
+      for (std::size_t i{this->len_ - 1}; i >= pos; --i)
+        this->str_[i + rhs.len_] = this->str_[i];
+    }
+    for (std::size_t i{}; i < rhs.len_; ++i) this->str_[pos + i] = rhs.str_[i];
+  } else {
+    std::size_t str_size{this->len_ + rhs.len_};
+    auto new_str{std::make_unique<char[]>(str_size + 1)};
+    auto raw_str{new_str.get()};
+
+    for (std::size_t i{}; i < pos; ++i) raw_str[i] = this->str_[i];
+    for (std::size_t i{}; i < rhs.len_; ++i) raw_str[pos + i] = rhs.str_[i];
+    for (std::size_t i{pos}; i < this->len_; ++i)
+      raw_str[rhs.len_ + i] = this->str_[i];
+
+    MyString tmp{raw_str};
+    swap(tmp);
+  }
+  return *this;
+}
+
 const char* MyString::str() const { return str_; }
 std::size_t MyString::length() const { return len_; }
 std::size_t MyString::capacity() const { return capacity_; }

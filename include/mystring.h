@@ -12,7 +12,7 @@ class MyString {
   MyString substr(std::size_t pos = 0, std::size_t len = npos) const;
   char at(std::size_t pos) const;
   void reserve(std::size_t size);
-
+  MyString& insert(std::size_t pos, const MyString& rhs);
   const char* str() const;
   std::size_t length() const;
   std::size_t capacity() const;

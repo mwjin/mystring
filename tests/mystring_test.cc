@@ -144,5 +144,59 @@ TEST(MyStringTest, Reserve) {
   EXPECT_EQ(str.capacity(), 100);
 }
 
+TEST(MyStringTest, InsertString) {
+  MyString dst{"He, World!"};
+  MyString src{"llo"};
+  dst.insert(2, src);
+  EXPECT_EQ(dst, "Hello, World!");
+}
+
+TEST(MyStringTest, InsertStringAfterReserving) {
+  MyString dst{"He, World!"};
+  MyString src{"llo"};
+  dst.reserve(100);
+  dst.insert(2, src);
+  EXPECT_EQ(dst, "Hello, World!");
+}
+
+TEST(MyStringTest, InsertStringFirstPos) {
+  MyString dst{"llo, World!"};
+  MyString src{"He"};
+  dst.insert(0, src);
+  EXPECT_EQ(dst, "Hello, World!");
+}
+
+TEST(MyStringTest, InsertStringLastPos) {
+  MyString dst{"Hello, Wo"};
+  MyString src{"rld!"};
+  dst.insert(dst.length(), src);
+  EXPECT_EQ(dst, "Hello, World!");
+}
+
+TEST(MyStringTest, InsertRawString) {
+  MyString dst{"llo, World!"};
+  dst.insert(0, "He");
+  EXPECT_EQ(dst, "Hello, World!");
+}
+
+TEST(MyStringTest, InsertCharacter) {
+  MyString dst{"Hllo, World!"};
+  dst.insert(1, 'e');
+  EXPECT_EQ(dst, "Hello, World!");
+}
+
+TEST(MyStringTest, ExtendUsingInsert) {
+  MyString dst{};
+  dst.insert(0, "Hello, World!");
+  EXPECT_EQ(dst, "Hello, World!");
+}
+
+TEST(MyStringTest, ExtendUsingInsertAfterReserve) {
+  MyString dst{};
+  dst.reserve(100);
+  dst.insert(0, "Hello, World!");
+  EXPECT_EQ(dst, "Hello, World!");
+}
+
 }  // namespace
 }  // namespace mystring
