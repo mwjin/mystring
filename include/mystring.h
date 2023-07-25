@@ -11,6 +11,7 @@ class MyString {
   MyString& operator+=(const MyString& rhs);
   MyString substr(std::size_t pos = 0, std::size_t len = npos) const;
   char at(std::size_t pos) const;
+  void reserve(std::size_t size);
 
   const char* str() const;
   std::size_t length() const;

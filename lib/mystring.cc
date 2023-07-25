@@ -68,6 +68,15 @@ char MyString::at(std::size_t pos) const {
   return str_[pos];
 }
 
+void MyString::reserve(std::size_t size) {
+  if (size <= this->capacity_) return;
+  char* new_str{new char[size + 1]};
+  for (std::size_t i{}; i < this->len_; ++i) new_str[i] = this->str_[i];
+  std::swap(this->str_, new_str);
+  this->capacity_ = size;
+  delete[] new_str;
+}
+
 const char* MyString::str() const { return str_; }
 std::size_t MyString::length() const { return len_; }
 std::size_t MyString::capacity() const { return capacity_; }

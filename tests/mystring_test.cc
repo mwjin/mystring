@@ -136,5 +136,13 @@ TEST(MyStringTest, GetSubstrOnlyPos) {
   EXPECT_EQ(str.substr(5), ", World!");
 }
 
+TEST(MyStringTest, Reserve) {
+  MyString str{"Hello, World!"};
+  str.reserve(100);
+  EXPECT_EQ(str, "Hello, World!");
+  EXPECT_EQ(str.length(), 13);
+  EXPECT_EQ(str.capacity(), 100);
+}
+
 }  // namespace
 }  // namespace mystring
