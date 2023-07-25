@@ -67,8 +67,7 @@ MyString& MyString::operator+=(const MyString& rhs) {
 }
 
 MyString MyString::substr(std::size_t pos, std::size_t len) const {
-  if (pos < 0 || pos >= this->len_)
-    throw std::out_of_range("pos is out of the boundary.");
+  if (pos >= this->len_) throw std::out_of_range("pos is out of the boundary.");
   if (len == npos) len = this->len_ - pos;
   const char* str{this->str_ + pos};
   auto result{std::make_unique<char[]>(len + 1)};
@@ -77,8 +76,7 @@ MyString MyString::substr(std::size_t pos, std::size_t len) const {
 }
 
 char MyString::at(std::size_t pos) const {
-  if (pos < 0 || pos >= len_)
-    throw std::out_of_range("pos is out of the boundary");
+  if (pos >= len_) throw std::out_of_range("pos is out of the boundary");
   return str_[pos];
 }
 
