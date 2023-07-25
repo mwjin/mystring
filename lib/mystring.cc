@@ -5,23 +5,23 @@
 #include <memory>
 #include <stdexcept>
 
-MyString::MyString() : str_{new char[1]}, len_{0}, capacity_{0} {}
+MyString::MyString() : str_{new char[1]}, len_{0}, capacity_{1} {}
 
-MyString::MyString(char c) : str_{new char[2]}, len_{1}, capacity_{1} {
+MyString::MyString(char c) : str_{new char[2]}, len_{1}, capacity_{2} {
   str_[0] = c;
 }
 
 MyString::MyString(const char* s) {
   if (s != nullptr) {
     len_ = strlen(s);
-    capacity_ = len_;
-    str_ = new char[len_ + 1];
+    capacity_ = len_ + 1;
+    str_ = new char[capacity_];
     for (std::size_t i{}; i < len_; ++i) str_[i] = s[i];
   }
 }
 
 MyString::MyString(const MyString& rhs)
-    : str_{new char[rhs.len_ + 1]}, len_{rhs.len_}, capacity_{rhs.capacity_} {
+    : str_{new char[rhs.capacity_]}, len_{rhs.len_}, capacity_{rhs.capacity_} {
   for (std::size_t i{}; i < len_; ++i) str_[i] = rhs.str_[i];
 }
 
@@ -31,7 +31,7 @@ MyString::~MyString() {
 
 MyString& MyString::operator=(const MyString& rhs) {
   if (this == &rhs) return *this;
-  if (rhs.len_ <= this->capacity_) {
+  if (rhs.len_ < this->capacity_) {
     for (std::size_t i{}; i < rhs.len_; ++i) this->str_[i] = rhs.str_[i];
     this->str_[rhs.len_] = '\0';
     this->len_ = rhs.len_;
@@ -73,7 +73,7 @@ char MyString::at(std::size_t pos) const {
 
 void MyString::reserve(std::size_t size) {
   if (size <= this->capacity_) return;
-  char* new_str{new char[size + 1]};
+  char* new_str{new char[size]};
   for (std::size_t i{}; i < this->len_; ++i) new_str[i] = this->str_[i];
   std::swap(this->str_, new_str);
   this->capacity_ = size;
