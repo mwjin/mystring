@@ -20,7 +20,10 @@ MyString::MyString(const char* s) {
   }
 }
 
-MyString::MyString(const MyString& other) : MyString{other.str_} {}
+MyString::MyString(const MyString& rhs)
+    : str_{new char[rhs.len_ + 1]}, len_{rhs.len_}, capacity_{rhs.capacity_} {
+  for (std::size_t i{}; i < len_; ++i) str_[i] = rhs.str_[i];
+}
 
 MyString::~MyString() {
   if (str_ != nullptr) delete[] str_;
