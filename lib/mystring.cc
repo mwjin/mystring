@@ -16,7 +16,7 @@ MyString::MyString(const char* s) {
     len_ = strlen(s);
     capacity_ = len_;
     str_ = new char[len_ + 1];
-    for (int i{}; i < len_; ++i) str_[i] = s[i];
+    for (std::size_t i{}; i < len_; ++i) str_[i] = s[i];
   }
 }
 
@@ -29,7 +29,7 @@ MyString::~MyString() {
 MyString& MyString::operator=(const MyString& rhs) {
   if (this == &rhs) return *this;
   if (rhs.len_ <= this->capacity_) {
-    for (int i{}; i < rhs.len_; ++i) this->str_[i] = rhs.str_[i];
+    for (std::size_t i{}; i < rhs.len_; ++i) this->str_[i] = rhs.str_[i];
     this->str_[rhs.len_] = '\0';
     this->len_ = rhs.len_;
   } else {
@@ -43,8 +43,9 @@ MyString& MyString::operator+=(const MyString& rhs) {
   std::size_t str_size{this->len_ + rhs.len_};
   auto new_str{std::make_unique<char[]>(str_size + 1)};
   auto raw_str{new_str.get()};
-  for (int i{}; i < this->len_; ++i) raw_str[i] = this->str_[i];
-  for (int i{}; i < rhs.len_; ++i) raw_str[i + this->len_] = rhs.str_[i];
+  for (std::size_t i{}; i < this->len_; ++i) raw_str[i] = this->str_[i];
+  for (std::size_t i{}; i < rhs.len_; ++i)
+    raw_str[i + this->len_] = rhs.str_[i];
 
   MyString tmp{raw_str};
   swap(tmp);
@@ -57,7 +58,7 @@ MyString MyString::substr(std::size_t pos, std::size_t len) const {
   if (len == npos) len = this->len_ - pos;
   const char* str{this->str_ + pos};
   auto result{std::make_unique<char[]>(len + 1)};
-  for (int i{}; i < len; ++i) result.get()[i] = str[i];
+  for (std::size_t i{}; i < len; ++i) result.get()[i] = str[i];
   return result.get();
 }
 
@@ -80,8 +81,8 @@ void MyString::swap(MyString& rhs) {
 
 MyString operator+(const MyString& str1, const MyString& str2) {
   auto new_str = std::make_unique<char[]>(str1.length() + str2.length() + 1);
-  for (int i{}; i < str1.length(); ++i) new_str.get()[i] = str1.at(i);
-  for (int i{}; i < str2.length(); ++i)
+  for (std::size_t i{}; i < str1.length(); ++i) new_str.get()[i] = str1.at(i);
+  for (std::size_t i{}; i < str2.length(); ++i)
     new_str.get()[i + str1.length()] = str2.at(i);
   return new_str.get();
 }
