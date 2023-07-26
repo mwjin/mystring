@@ -238,5 +238,48 @@ TEST(MyStringTest, FindSubstrDiffPos) {
   EXPECT_EQ(str.find("very", 8), 9);
 }
 
+TEST(MyStringTest, InitWithRvalue) {
+  MyString src{"Hello, World!"};
+  MyString dst{std::move(src)};
+  EXPECT_EQ(dst, "Hello, World!");
+  EXPECT_EQ(src.c_str(), nullptr);
+}
+
+TEST(MyStringTest, InitWithTmp) {
+  MyString str1{"Hello, "};
+  MyString str2{"World!"};
+  MyString str3{str1 + str2};
+  EXPECT_EQ(str3, "Hello, World!");
+}
+
+TEST(MyStringTest, AssignRvalue) {
+  MyString src{"Hello, World!"};
+  MyString dst{};
+  dst = std::move(src);
+  EXPECT_EQ(dst, "Hello, World!");
+  EXPECT_EQ(src.c_str(), nullptr);
+}
+
+TEST(MyStringTest, AssignTmp) {
+  MyString str1{"Hello, "};
+  MyString str2{"World!"};
+  MyString str3{};
+  str3 = str1 + str2;
+  EXPECT_EQ(str3, "Hello, World!");
+}
+
+TEST(MyStringTest, WorkWithContainer) {
+  MyString s{"abc"};
+  std::vector<MyString> vec;
+  vec.resize(0);
+
+  vec.push_back(s);
+  vec.push_back(s);
+  vec.push_back(s);
+
+  EXPECT_EQ(vec.size(), 3);
+  EXPECT_EQ(vec.back(), "abc");
+}
+
 }  // namespace
 }  // namespace mystring

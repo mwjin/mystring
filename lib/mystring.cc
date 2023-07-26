@@ -30,6 +30,13 @@ MyString::MyString(const MyString& rhs)
   str_[len_] = '\0';
 }
 
+MyString::MyString(MyString&& rhs) noexcept
+    : str_{rhs.str_}, len_{rhs.len_}, capacity_{rhs.capacity_} {
+  rhs.str_ = nullptr;
+  rhs.len_ = 0;
+  rhs.capacity_ = 0;
+}
+
 MyString::~MyString() {
   if (str_ != nullptr) delete[] str_;
 }
@@ -44,6 +51,16 @@ MyString& MyString::operator=(const MyString& rhs) {
     MyString tmp{rhs.str_};
     swap(tmp);
   }
+  return *this;
+}
+
+MyString& MyString::operator=(MyString&& rhs) {
+  swap(rhs);
+  auto prev_str{rhs.str_};
+  rhs.str_ = nullptr;
+  rhs.len_ = 0;
+  rhs.capacity_ = 0;
+  if (prev_str != nullptr) delete[] prev_str;
   return *this;
 }
 

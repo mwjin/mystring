@@ -6,8 +6,10 @@ class MyString {
   MyString(char c);
   MyString(const char* s);
   MyString(const MyString& rhs);
+  MyString(MyString&& rhs) noexcept;
   ~MyString();
   MyString& operator=(const MyString& rhs);
+  MyString& operator=(MyString&& rhs);
   MyString& operator+=(const MyString& rhs);
   MyString substr(std::size_t pos = 0, std::size_t len = npos) const;
   char at(std::size_t pos) const;
