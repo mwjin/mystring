@@ -115,6 +115,20 @@ MyString& MyString::insert(std::size_t pos, const MyString& rhs) {
   return *this;
 }
 
+MyString& MyString::erase(std::size_t pos, std::size_t num) {
+  if (pos > this->len_) throw std::out_of_range("pos is out of the boundary.");
+  std::size_t first{pos};
+  std::size_t last{pos + num};
+  if (last > this->len_) last = this->len_;
+
+  for (std::size_t i{}; i < this->len_ - last; ++i)
+    this->str_[pos + i] = this->str_[last + i];
+  this->len_ -= last - first;
+  this->str_[this->len_] = '\0';
+
+  return *this;
+}
+
 const char* MyString::c_str() const { return str_; }
 std::size_t MyString::length() const { return len_; }
 std::size_t MyString::capacity() const { return capacity_; }

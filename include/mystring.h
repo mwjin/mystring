@@ -13,6 +13,7 @@ class MyString {
   char at(std::size_t pos) const;
   void reserve(std::size_t size);
   MyString& insert(std::size_t pos, const MyString& rhs);
+  MyString& erase(std::size_t pos, std::size_t num = npos);
   const char* c_str() const;
   std::size_t length() const;
   std::size_t capacity() const;

@@ -198,5 +198,29 @@ TEST(MyStringTest, ExtendUsingInsertAfterReserve) {
   EXPECT_EQ(dst, "Hello, World!");
 }
 
+TEST(MyStringTest, EraseSubstring) {
+  MyString str{"This is an example sentence."};
+  str.erase(9, 9);
+  EXPECT_EQ(str, "This is a sentence.");
+}
+
+TEST(MyStringTest, EraseStringUntilEnd) {
+  MyString str{"This is an example sentence."};
+  str.erase(18, 10);
+  EXPECT_EQ(str, "This is an example");
+}
+
+TEST(MyStringTest, EraseStringExceedLength) {
+  MyString str{"This is an example sentence."};
+  str.erase(18, 100);
+  EXPECT_EQ(str, "This is an example");
+}
+
+TEST(MyStringTest, EraseWholeString) {
+  MyString str{"This is an example sentence."};
+  str.erase(0, str.length());
+  EXPECT_EQ(str, "");
+}
+
 }  // namespace
 }  // namespace mystring
