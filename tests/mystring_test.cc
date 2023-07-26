@@ -222,5 +222,21 @@ TEST(MyStringTest, EraseWholeString) {
   EXPECT_EQ(str, "");
 }
 
+TEST(MyStringTest, FindSubstr) {
+  MyString str{"This is an example sentence."};
+  EXPECT_EQ(str.find("example"), 11);
+}
+
+TEST(MyStringTest, FindSubstrNotFound) {
+  MyString str{"This is an example sentence."};
+  EXPECT_EQ(str.find("example", 12), -1);
+}
+
+TEST(MyStringTest, FindSubstrDiffPos) {
+  MyString str{"I'm very very strong!"};
+  EXPECT_EQ(str.find("very"), 4);
+  EXPECT_EQ(str.find("very", 8), 9);
+}
+
 }  // namespace
 }  // namespace mystring

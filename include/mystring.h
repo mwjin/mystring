@@ -14,6 +14,7 @@ class MyString {
   void reserve(std::size_t size);
   MyString& insert(std::size_t pos, const MyString& rhs);
   MyString& erase(std::size_t pos, std::size_t num = npos);
+  std::size_t find(const MyString& rhs, std::size_t pos = 0);
   const char* c_str() const;
   std::size_t length() const;
   std::size_t capacity() const;

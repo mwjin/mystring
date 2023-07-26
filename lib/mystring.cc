@@ -129,6 +129,18 @@ MyString& MyString::erase(std::size_t pos, std::size_t num) {
   return *this;
 }
 
+std::size_t MyString::find(const MyString& str, std::size_t pos) {
+  for (std::size_t i{pos}; i < this->len_ - str.len_; ++i) {
+    bool found{true};
+
+    for (std::size_t j{}; found && j < str.len_; ++j)
+      if (this->str_[i + j] != str.str_[j]) found = false;
+
+    if (found) return i;
+  }
+  return MyString::npos;
+}
+
 const char* MyString::c_str() const { return str_; }
 std::size_t MyString::length() const { return len_; }
 std::size_t MyString::capacity() const { return capacity_; }
